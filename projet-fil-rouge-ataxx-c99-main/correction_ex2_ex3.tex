@@ -70,9 +70,7 @@
 \begin{center}
   {\LARGE\bfseries Correction --- TD Complexité Algorithmique}\\[0.4em]
   {\large Exercices 2 \& 3 \textemdash{} ABR/AVL et Minimax/Alpha-bêta}\\[0.2em]
-  {\small IMT Mines Alès --- Module 8.2.3}
 \end{center}
-\rule{\linewidth}{0.8pt}
 
 % =====================================================================
 \section*{Exercice 2 --- Structures équilibrées et coût mémoire}
@@ -81,9 +79,7 @@
 \subsection*{Partie A --- ABR et coût de la recherche}
 
 %------------------------------------------------------------
-\paragraph{Question 1 --- ABR pour 42, 17, 63, 8, 31, 55, 78.}
-
-On insère les clés dans l'ordre : la première devient la racine, chaque nouvelle clé descend à gauche si elle est plus petite, à droite sinon.
+\paragraph{Question 1}
 
 \begin{center}
 \begin{tikzpicture}[
@@ -103,17 +99,17 @@ On insère les clés dans l'ordre : la première devient la racine, chaque nouve
 \end{center}
 
 \boitereponse{%
-\textbf{Hauteur} (nombre d'arêtes de la racine jusqu'à la feuille la plus profonde) $= \mathbf{2}$.%
+\textbf{Hauteur} $= \mathbf{2}$.%
 }
 
 %------------------------------------------------------------
-\paragraph{Question 2 --- Coût de la recherche.}
+\paragraph{Question 2}
 
-Avec 7 nœuds répartis sur 3 niveaux (1 nœud niveau 1, 2 nœuds niveau 2, 4 feuilles niveau 3) :
+Avec 7 nœuds répartis sur 3 niveaux :
 
 \begin{itemize}
   \item \textbf{Pire cas} : la clé cherchée est une feuille $\to$ \textbf{3 comparaisons} ($= h + 1$).
-  \item \textbf{Cas moyen} (en supposant chaque nœud équiprobable) :
+  \item \textbf{Cas moyen} :
   \[
     \bar{c} = \frac{1 \times 1 + 2 \times 2 + 4 \times 3}{7}
              = \frac{1 + 4 + 12}{7}
@@ -123,26 +119,26 @@ Avec 7 nœuds répartis sur 3 niveaux (1 nœud niveau 1, 2 nœuds niveau 2, 4 fe
 \end{itemize}
 
 %------------------------------------------------------------
-\paragraph{Question 3 --- ABR dégénéré (insertion triée).}
+\paragraph{Question 3}
 
-En insérant dans l'ordre croissant 8, 17, 31, 42, 55, 63, 78, chaque clé est systématiquement plus grande que la précédente : l'arbre dégénère en liste chaînée vers la droite.
+En insérant dans l'ordre croissant 8, 17, 31, 42, 55, 63, 78, on a l'arbre suivant : 
 
 \begin{center}
 \begin{tikzpicture}[node distance=0pt]
   \node[abr] (n1) {8};
-  \node[abr, right=2.5cm of n1, yshift=-1.2cm] (n2) {17};
-  \node[abr, right=2.5cm of n2, yshift=-1.2cm] (n3) {31};
-  \node[abr, right=2.5cm of n3, yshift=-1.2cm] (n4) {42};
-  \node[abr, right=2.5cm of n4, yshift=-1.2cm] (n5) {55};
-  \node[abr, right=2.5cm of n5, yshift=-1.2cm] (n6) {63};
-  \node[abr, right=2.5cm of n6, yshift=-1.2cm] (n7) {78};
+  \node[abr, right=1.5cm of n1, yshift=-1.2cm] (n2) {17};
+  \node[abr, right=1.5cm of n2, yshift=-1.2cm] (n3) {31};
+  \node[abr, right=1.5cm of n3, yshift=-1.2cm] (n4) {42};
+  \node[abr, right=1.5cm of n4, yshift=-1.2cm] (n5) {55};
+  \node[abr, right=1.5cm of n5, yshift=-1.2cm] (n6) {63};
+  \node[abr, right=1.5cm of n6, yshift=-1.2cm] (n7) {78};
   % petits tirets pour indiquer pas de fils gauche
-  \draw[thick] (n1) -- (n2) node[midway,above,sloped,font=\tiny]{droite};
-  \draw[thick] (n2) -- (n3) node[midway,above,sloped,font=\tiny]{droite};
-  \draw[thick] (n3) -- (n4) node[midway,above,sloped,font=\tiny]{droite};
-  \draw[thick] (n4) -- (n5) node[midway,above,sloped,font=\tiny]{droite};
-  \draw[thick] (n5) -- (n6) node[midway,above,sloped,font=\tiny]{droite};
-  \draw[thick] (n6) -- (n7) node[midway,above,sloped,font=\tiny]{droite};
+  \draw[thick] (n1) -- (n2) node[midway,above,sloped,font=\tiny]{};
+  \draw[thick] (n2) -- (n3) node[midway,above,sloped,font=\tiny]{};
+  \draw[thick] (n3) -- (n4) node[midway,above,sloped,font=\tiny]{};
+  \draw[thick] (n4) -- (n5) node[midway,above,sloped,font=\tiny]{};
+  \draw[thick] (n5) -- (n6) node[midway,above,sloped,font=\tiny]{};
+  \draw[thick] (n6) -- (n7) node[midway,above,sloped,font=\tiny]{};
 \end{tikzpicture}
 \end{center}
 
@@ -152,7 +148,7 @@ En insérant dans l'ordre croissant 8, 17, 31, 42, 55, 63, 78, chaque clé est s
 }
 
 %------------------------------------------------------------
-\paragraph{Question 4 --- Conclusion.}
+\paragraph{Question 4}
 
 \boitereponse{%
 L'ordre d'insertion détermine directement la forme de l'ABR.
@@ -164,12 +160,10 @@ Un ordre aléatoire donne en moyenne une hauteur $O(\log n)$.
 % ============================
 \subsection*{Partie B --- Rotations et équilibrage AVL}
 
-On rappelle la convention : le \textbf{facteur d'équilibre} (bf) d'un nœud $= h(\text{sous-arbre gauche}) - h(\text{sous-arbre droit})$, avec $h(\text{null}) = -1$.
 
-%------------------------------------------------------------
-\paragraph{Question 1 --- Insertion de la clé 5.}
+\paragraph{Question 1}
 
-$5 < 42 \to \text{gauche}$, $5 < 17 \to \text{gauche}$, $5 < 8 \to$ fils gauche de 8.
+
 
 \begin{center}
 \begin{tikzpicture}[
@@ -213,9 +207,8 @@ Nœud & $h_g$ & $h_d$ & bf \\
 \boitereponse{Tous les facteurs sont dans $\{-1, 0, 1\}$ : \textbf{l'arbre est toujours AVL}.}
 
 %------------------------------------------------------------
-\paragraph{Question 2 --- Insertion de la clé 3.}
+\paragraph{Question 2}
 
-$3 < 42 \to 17 \to 8 \to 5 \to$ fils gauche de 5.
 
 \begin{center}
 \begin{tikzpicture}[
@@ -226,7 +219,7 @@ $3 < 42 \to 17 \to 8 \to 5 \to$ fils gauche de 5.
 ]
   \node[abr]{42}
     child{node[abr]{17}
-      child{node[abr, label={[font=\small,text=red]right:bf=\textbf{2}!}]{8}
+      child{node[abr]{8}
         child{node[abr]{5}
           child{node[abr]{3}}
           child[missing]{}
@@ -243,12 +236,10 @@ $3 < 42 \to 17 \to 8 \to 5 \to$ fils gauche de 5.
 \end{center}
 
 \begin{itemize}
-  \item $h_g(8) = h(5) = 1$, $h_d(8) = -1$ $\Rightarrow$ bf(8) $= 2$ : \textbf{nœud déséquilibré = 8}.
-  \item Configuration : 3 est dans le sous-arbre \emph{gauche du fils gauche} de 8 $\to$ cas \textbf{Gauche-Gauche}.
-  \item Rotation nécessaire : \textbf{rotation simple droite} sur le nœud 8.
+  \item $h_g(8) = h(5) = 1$, $h_d(8) = -1$ $\Rightarrow$ bf(8) $= 2$ : \textbf{nœud déséquilibré = 8}
+  \item Rotation nécessaire : \textbf{rotation simple droite} sur le nœud 8
 \end{itemize}
 
-Application de \texttt{rotate\_right(8)} : $y = 8$, $x = 5$, $T_2 = \texttt{null}$ (fils droit de 5).
 
 \begin{center}
 \begin{tikzpicture}[
@@ -271,28 +262,24 @@ Application de \texttt{rotate\_right(8)} : $y = 8$, $x = 5$, $T_2 = \texttt{null
 \end{tikzpicture}
 \end{center}
 
-\boitereponse{Facteurs d'équilibre après rotation : 3:0, 8:0, 5:0, 31:0, 17:1, 55:0, 78:0, 63:0, 42:1. \\
+\boitereponse{Facteurs d'équilibre après rotation :  
 Tous dans $\{-1,0,1\}$ : \textbf{arbre AVL valide}.}
 
 %------------------------------------------------------------
-\paragraph{Question 3 --- Construction AVL avec 8, 17, 31, 42, 55, 63, 78.}
+\paragraph{Question 3}
 
-On trace les étapes clés (toutes les rotations sont des \emph{rotations simples gauches} car les insertions suivent toujours le sous-arbre droit) :
-
-\begin{enumerate}[label=\textbf{Étape \arabic*.}]
-  \item Insère \textbf{8, 17} : bf(8) $= -1$ \checkmark
-  \item Insère \textbf{31} : bf(8) $= -2$ (RR) $\to$ \textbf{rotation gauche sur 8}
-        $\Rightarrow$ racine = 17, fils : \{8, 31\}
-  \item Insère \textbf{42} : bf(31) $= -1$, bf(17) $= -1$ \checkmark
-  \item Insère \textbf{55} : bf(31) $= -2$ (RR) $\to$ \textbf{rotation gauche sur 31}
-        $\Rightarrow$ sous-arbre droit de 17 devient \{42, g:31, d:55\}
-  \item Insère \textbf{63} : bf(17) $= -2$ (RR) $\to$ \textbf{rotation gauche sur 17 (la racine)}
-        $\Rightarrow$ racine = 42, g:\{17,g:8,d:31\}, d:\{55,d:63\}
-  \item Insère \textbf{78} : bf(55) $= -2$ (RR) $\to$ \textbf{rotation gauche sur 55}
-        $\Rightarrow$ sous-arbre droit de 42 devient \{63, g:55, d:78\}
+\begin{enumerate}[]
+  \item On insère \textbf{8, 17} : bf(8) $= -1$ 
+  \item On insère \textbf{31} : bf(8) $= -2$ $\to$ \textbf{rotation gauche sur 8}
+        
+  \item On insère \textbf{42} : bf(31) $= -1$, bf(17) $= -1$ 
+  \item On insère \textbf{55} : bf(31) $= -2$ $\to$ \textbf{rotation gauche sur 31}
+        
+  \item On insère \textbf{63} : bf(17) $= -2$ $\to$ \textbf{rotation gauche sur 17}
+        
+  \item On insère \textbf{78} : bf(55) $= -2$ $\to$ \textbf{rotation gauche sur 55}
 \end{enumerate}
 
-\textbf{Arbre AVL final :}
 
 \begin{center}
 \begin{tikzpicture}[
@@ -312,13 +299,12 @@ On trace les étapes clés (toutes les rotations sont des \emph{rotations simple
 \end{center}
 
 \boitereponse{%
-\textbf{Hauteur AVL} $= 2$.\\
-\textbf{Hauteur ABR dégénéré} $= 6$.\\
-L'AVL a reconstruit un arbre parfaitement équilibré, identique à celui de la Question~1, quelle que soit l'ordre d'insertion.%
+\textbf{Hauteur AVL} $= 2$\\
+\textbf{Hauteur ABR dégénéré} $= 6$
 }
 
 %------------------------------------------------------------
-\paragraph{Question 4 --- Coût $O(\log n)$ d'une insertion AVL.}
+\paragraph{Question 4}
 
 \boitereponse{%
 \begin{itemize}
@@ -332,7 +318,7 @@ L'AVL a reconstruit un arbre parfaitement équilibré, identique à celui de la 
 \subsection*{Partie C --- Application : table de transposition}
 
 %------------------------------------------------------------
-\paragraph{Question 1 --- Taille d'un nœud \texttt{AvlNode}.}
+\paragraph{Question 1}
 
 \begin{center}
 \begin{tabular}{lcc}
@@ -350,26 +336,25 @@ Champ         & Type            & Taille \\
 \end{tabular}
 \end{center}
 
-Pas de padding : \texttt{key}(8) + \texttt{value}(4) + \texttt{height}(4) + \texttt{left}(8) + \texttt{right}(8) = 32 octets, tous les champs sont naturellement alignés.
 
 %------------------------------------------------------------
-\paragraph{Question 2 --- Mémoire pour $10^6$ positions.}
+\paragraph{Question 2}
 
 \[
-  10^6 \times 32\ \text{octets} = 32 \times 10^6\ \text{octets} = \mathbf{32\ \text{Mo}}.
+  10^6 \times 32\ \text{octets} = 32 \times 10^6\ \text{octets} = \mathbf{32\ \text{Mo}}
 \]
 
 %------------------------------------------------------------
-\paragraph{Question 3 --- Capacité maximale avec 256 Mo.}
+\paragraph{Question 3}
 
 \[
   \frac{256 \times 10^6\ \text{octets}}{32\ \text{octets/nœud}} = \mathbf{8 \times 10^6}\ \textbf{positions au maximum.}
 \]
 
-\boitereponse{Dès que l'agent explore plus de 8 millions de positions, la RAM est saturée. \textbf{Une stratégie de remplacement est nécessaire} (ex. : LRU, ou remplacement aléatoire par profondeur).}
+\boitereponse{Dès que l'agent explore plus de 8 millions de positions, la RAM est saturée}
 
 %------------------------------------------------------------
-\paragraph{Question 4 --- Comparaison avec une table de hachage.}
+\paragraph{Question 4}
 
 Mémoire table de hachage : $2^{20} \times 12\ \text{octets} = 1\,048\,576 \times 12 \approx \mathbf{12\ \text{Mo}}$.
 
@@ -389,11 +374,9 @@ Parcours ordonné         & Oui              & Non \\
 \end{center}
 
 \boitereponse{%
-La table de hachage est \textbf{plus rapide} ($O(1)$ moyen) et \textbf{moins consommatrice en mémoire} pour une taille fixe.
-En revanche, sa taille est fixe (pas d'insertion illimitée) et les collisions dégradent les performances.
-\textbf{En pratique pour une table de transposition de jeu, la table de hachage (type Zobrist) est préférée} car la vitesse d'accès prime sur le parcours ordonné des clés.%
+La table de hachage est \textbf{plus rapide} et \textbf{moins consommatrice en mémoire}.
+Cependant sa taille est fixe.
 }
-
 % =====================================================================
 \newpage
 \section*{Exercice 3 --- Minimax et élagage alpha-bêta}
@@ -402,23 +385,7 @@ En revanche, sa taille est fixe (pas d'insertion illimitée) et les collisions d
 \subsection*{Partie A --- Minimax sur un arbre donné}
 
 %------------------------------------------------------------
-\paragraph{Question 1 --- Application de minimax.}
-
-Structure de l'arbre : racine MAX (profondeur 0), niveau~1 MIN, niveau~2 MAX, feuilles au niveau~3.
-
-Calcul de bas en haut :
-\begin{itemize}
-  \item \textbf{Niveau 2 (MAX)} :
-    $C = \max(3, 12) = 12$, \quad
-    $D = \max(8, 2) = 8$, \quad
-    $E = \max(4, 6) = 6$, \quad
-    $F = \max(14, 5) = 14$.
-  \item \textbf{Niveau 1 (MIN)} :
-    $A = \min(C, D) = \min(12, 8) = 8$, \quad
-    $B = \min(E, F) = \min(6, 14) = 6$.
-  \item \textbf{Racine (MAX)} :
-    $\text{ROOT} = \max(A, B) = \max(8, 6) = \mathbf{8}$.
-\end{itemize}
+\paragraph{Question 1}
 
 \begin{center}
 \begin{tikzpicture}[
@@ -450,10 +417,11 @@ Calcul de bas en haut :
 \end{tikzpicture}
 \end{center}
 
-\boitereponse{Valeur à la racine : \textbf{8}. Coup optimal pour MAX : aller vers le \textbf{fils gauche} (sous-arbre A, valeur 8).}
+\boitereponse{Valeur à la racine : \textbf{8}. Coup optimal pour MAX : aller vers le \textbf{fils gauche}}
 
 %------------------------------------------------------------
-\paragraph{Question 2 --- Pseudo-code minimax.}
+\paragraph{Question 2}
+
 
 \begin{lstlisting}
 int minimax(Node *node, bool maximizing) {
@@ -474,11 +442,9 @@ int minimax(Node *node, bool maximizing) {
 }
 \end{lstlisting}
 
-\textbf{Cas de base} : nœud feuille (profondeur $d = 0$ ou état terminal de jeu).\\
-\textbf{Appels récursifs} : on alterne \texttt{maximizing = true/false} à chaque niveau.
 
 %------------------------------------------------------------
-\paragraph{Question 3 --- Complexité.}
+\paragraph{Question 3}
 
 À chaque nœud on explore $b$ enfants, sur $d$ niveaux :
 \[
@@ -486,7 +452,7 @@ int minimax(Node *node, bool maximizing) {
 \]
 
 %------------------------------------------------------------
-\paragraph{Question 4 --- Application Ataxx ($b = 40$, $d = 4$).}
+\paragraph{Question 4}
 
 \[
   40^4 = 2\,560\,000 \approx 2{,}56 \times 10^6\ \text{feuilles.}
@@ -500,36 +466,8 @@ int minimax(Node *node, bool maximizing) {
 \subsection*{Partie B --- Élagage alpha-bêta}
 
 %------------------------------------------------------------
-\paragraph{Question 1 --- Déroulement pas à pas.}
+\paragraph{Question 1}
 
-Convention : $\alpha$ = meilleure valeur garantie pour MAX (borne inférieure courante),
-$\beta$ = meilleure valeur garantie pour MIN (borne supérieure courante). Initialement $\alpha = -\infty$, $\beta = +\infty$.
-
-\begin{enumerate}[label=\textbf{\arabic*.}]
-  \item \textbf{ROOT}(MAX, $\alpha{=}{-}\infty$, $\beta{=}{+}\infty$) : descend vers A.
-  \item \textbf{A}(MIN, $\alpha{=}{-}\infty$, $\beta{=}{+}\infty$) : descend vers C.
-  \item \textbf{C}(MAX, $\alpha{=}{-}\infty$, $\beta{=}{+}\infty$) :
-        évalue feuille 3 $\to$ $\alpha \leftarrow 3$ ;
-        évalue feuille 12 $\to$ $\alpha \leftarrow 12$.
-        Retourne \textbf{12}.
-  \item \textbf{A} : $\beta \leftarrow \min(+\infty, 12) = 12$. Descend vers D.
-  \item \textbf{D}(MAX, $\alpha{=}{-}\infty$, $\beta{=}12$) :
-        évalue feuille 8 $\to$ $\alpha \leftarrow 8$ ($8 < 12$, pas de coupure) ;
-        évalue feuille 2 $\to$ valeur = 8.
-        Retourne \textbf{8}.
-  \item \textbf{A} : $\beta \leftarrow \min(12, 8) = 8$. Retourne \textbf{8}.
-  \item \textbf{ROOT} : $\alpha \leftarrow \max(-\infty, 8) = 8$. Descend vers B.
-  \item \textbf{B}(MIN, $\alpha{=}8$, $\beta{=}{+}\infty$) : descend vers E.
-  \item \textbf{E}(MAX, $\alpha{=}8$, $\beta{=}{+}\infty$) :
-        évalue feuille 4 ($\alpha$ reste 8) ;
-        évalue feuille 6 ($\alpha$ reste 8).
-        Retourne \textbf{6}.
-  \item \textbf{B} : $\beta \leftarrow \min(+\infty, 6) = 6$.
-        Vérification : $\alpha \geq \beta$ ? $8 \geq 6$ \textbf{OUI}
-        $\to$ \textcolor{red}{\textbf{coupure $\alpha$}} !
-        F et ses feuilles (14, 5) ne sont \textbf{pas visités}.
-  \item \textbf{ROOT} : retourne $\max(8, 6) = \mathbf{8}$.
-\end{enumerate}
 
 \begin{center}
 \begin{tikzpicture}[
@@ -562,11 +500,10 @@ $\beta$ = meilleure valeur garantie pour MIN (borne supérieure courante). Initi
   \node[font=\small\bfseries, text=red] at (4.8, -3.5) {coupure $\alpha$ ici};
 \end{tikzpicture}
 
-\small Les nœuds en grisé/pointillés sont élaguées (non visités).
 \end{center}
 
 %------------------------------------------------------------
-\paragraph{Question 2.}
+\paragraph{Question 2}
 
 \boitereponse{%
 \textbf{Feuilles évaluées} : 3, 12, 8, 2, 4, 6 $\Rightarrow$ \textbf{6 feuilles}. \\
@@ -575,7 +512,7 @@ La valeur à la racine est \textbf{inchangée : 8}.%
 }
 
 %------------------------------------------------------------
-\paragraph{Question 4 --- Rôle de $\alpha$ et $\beta$.}
+\paragraph{Question 4}
 
 \boitereponse{%
 $\alpha$ est la meilleure valeur que MAX est \emph{déjà assuré} d'obtenir sur un autre chemin (borne inférieure).
@@ -585,7 +522,7 @@ Si $\alpha \geq \beta$ : MAX a déjà un chemin valant $\geq \alpha$, mais dans 
 }
 
 %------------------------------------------------------------
-\paragraph{Question 5 --- Gain en profondeur effective.}
+\paragraph{Question 5}
 
 \begin{itemize}
   \item \textbf{Minimax} : $40^4 = 2\,560\,000$ feuilles.
@@ -603,7 +540,7 @@ là où minimax ne peut aller qu'à $d = 4$, car $40^{8/2} = 40^4$.
 \subsection*{Partie C --- Ordonnancement et table de transposition}
 
 %------------------------------------------------------------
-\paragraph{Question 1 --- Pire cas alpha-bêta.}
+\paragraph{Question 1}
 
 \boitereponse{%
 Dans le \textbf{pire ordre} (coups explorés du moins bon au meilleur), aucune coupure n'est déclenchée.
@@ -611,7 +548,7 @@ Alpha-bêta évalue \textbf{$b^d$ feuilles}, identique au minimax pur.%
 }
 
 %------------------------------------------------------------
-\paragraph{Question 2 --- Critères d'ordonnancement des coups.}
+\paragraph{Question 2}
 
 \begin{enumerate}
   \item \textbf{Nombre de captures} : trier les coups par ordre décroissant du nombre de pièces adverses retournées. Les coups offensifs sont statistiquement meilleurs et génèrent des coupures plus tôt.
@@ -619,7 +556,7 @@ Alpha-bêta évalue \textbf{$b^d$ feuilles}, identique au minimax pur.%
 \end{enumerate}
 
 %------------------------------------------------------------
-\paragraph{Question 3 --- Rôle de la table de transposition (AVL de l'exercice 2).}
+\paragraph{Question 3}
 
 \textbf{(a) Éviter les réévaluations :}
 Avant chaque appel récursif, on calcule le hash Zobrist de l'état courant et on le cherche dans l'AVL.
@@ -630,7 +567,7 @@ Pour chaque coup légal, on calcule le hash de la position résultante et on con
 Si un score est disponible, il sert de clé de tri pour explorer les meilleurs coups en premier, maximisant ainsi les coupures alpha-bêta.
 
 %------------------------------------------------------------
-\paragraph{Question 4 --- Tableau de synthèse.}
+\paragraph{Question 4}
 
 \begin{center}
 \renewcommand{\arraystretch}{1.4}
@@ -646,8 +583,6 @@ Alpha-bêta + ordonn. + TT     & $\approx b^{d/2}$  & $d \leq 6$--$8$ & Oui \\
 \end{tabular}
 \end{center}
 
-\textit{Note} : seuil pratique estimé à $\approx 10^6$ feuilles par coup pour un temps de réponse acceptable.\\
-Minimax : $40^3 = 64\,000$ (\checkmark), $40^4 = 2{,}56M$ (limite).
-Alpha-bêta meilleur cas : $40^3 \Rightarrow d = 6$ ; $40^4 \Rightarrow d = 8$.
+
 
 \end{document}
